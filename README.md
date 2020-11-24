@@ -1,2 +1,3 @@
 # recap
- Reproducible configurations in python
+
+**re**producible **c**onfigurations for **a**ny **p**roject

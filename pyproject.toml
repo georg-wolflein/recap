@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "recap"
+version = "0.1.0"
+description = "Reproducible configurations for any project"
+authors = ["Georg Wölflein <georgw7777@gmail.com>"]
+license = "Apache-2.0"
+packages = [
+    { include = "recap" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+yacs = "^0.1.8"
+pyyaml = "^5.3.1"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5.4"
+pytest = "^6.1.2"
+pylint = "^2.6.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
