@@ -1,11 +1,25 @@
 [tool.poetry]
 name = "recap"
-version = "0.1.0"
+version = "0.1.1"
 description = "Reproducible configurations for any project"
 authors = ["Georg Wölflein <georgw7777@gmail.com>"]
 license = "Apache-2.0"
 packages = [
     { include = "recap" }
+]
+readme = "README.md"
+homepage = "https://github.com/georgw777/recap"
+repository = "https://github.com/georgw777/recap"
+keywords = ["flake8", "markdown", "lint"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+include = [
+    "LICENSE",
 ]
 
 [tool.poetry.dependencies]
