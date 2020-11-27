@@ -126,7 +126,7 @@ with my_uri.open("r") as f:
     print(f.read())
 ```
 
-### Recap `URI`s in inherited configurations
+### Logical URIs in inherited configurations
 
 The `recap.URI` interface is fully compatible with the nested configurations.
 This means that you can use recap `URI`s within the `_BASE_` field for inheriting configurations.
