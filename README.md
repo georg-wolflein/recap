@@ -2,7 +2,7 @@
 
 ![build](https://github.com/georgw777/recap/workflows/build/badge.svg)
 
-_Recap_ is a tool for providing _REproducible Configurations for Any Project_.
+_recap_ is a tool for providing _REproducible Configurations for Any Project_.
 
 Research should be reproducible.
 Especially in deep learning, it is important to keep track of hyperparameters and configurations used in experiments.
@@ -25,7 +25,7 @@ from recap import URI, CfgNode as CN
 ```
 
 The `CfgNode` is a subclass of [yacs](https://github.com/rbgirshick/yacs)' `CfgNode`.
-It provides some additional features for parsing configurations that are inherited between files which is not possible with [yacs](https://github.com/rbgirshick/yacs).
+It provides some additional features for parsing configurations that are inherited between files which is not possible with yacs.
 
 Recap's `URI` class provides a mechanism for handling logical paths within your project more conveniently with an interface that is fully compatible with `pathlib.Path`.
 
