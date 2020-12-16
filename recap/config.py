@@ -1,4 +1,3 @@
-from __future__ import annotations
 import os
 from typing import Dict, Any
 from pathlib import Path
@@ -26,7 +25,7 @@ class CfgNode(_CfgNode):
         super().__init__(init_dict=init_dict, key_list=key_list, new_allowed=new_allowed)
 
     @classmethod
-    def load_yaml_with_base(cls, filename: os.PathLike) -> CfgNode:
+    def load_yaml_with_base(cls, filename: os.PathLike) -> "CfgNode":
         uri = URI(filename)
         with uri.open("r") as f:
             cfg = cls.load_cfg(f)

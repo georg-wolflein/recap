@@ -1,4 +1,3 @@
-from __future__ import annotations
 from pathlib import Path, PurePath, _PosixFlavour
 from typing import Callable
 import logging
@@ -66,7 +65,7 @@ class PathManagerBase:
         else:
             return Path(path.path)
 
-    def register_handler(self, scheme: str) -> Callable:
+    def register_handler(self, scheme: str) -> callable:
         def decorator(func: Callable[[os.PathLike], Path]):
             self._handlers[scheme] = func
             logger.debug(f"Registered path handler for scheme {scheme}")
