@@ -1,6 +1,9 @@
 # recap
 
 ![build](https://github.com/georgw777/recap/workflows/build/badge.svg)
+![PyPI](https://img.shields.io/pypi/v/recap)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/recap)
+![GitHub](https://img.shields.io/github/license/georgw777/recap)
 
 _recap_ is a tool for providing _REproducible Configurations for Any Project_.
 
