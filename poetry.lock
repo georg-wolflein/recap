@@ -558,7 +558,7 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 docs = ["sphinx", "sphinx-rtd-theme", "m2r2"]
 
 [metadata]
-content-hash = "aa6ffdeb2357a46ab412d3a571a8b39c9e8760455157df26892159f07e3db489"
+content-hash = "d43ca2eaba4f190ebdee3a56b2f851f5f40f2c0f4bd6f4e76bd039cf0a38a73b"
 lock-version = "1.0"
 python-versions = "^3.6"
 

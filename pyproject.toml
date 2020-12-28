@@ -34,6 +34,7 @@ m2r2 = { version = "^0.2.7", optional = true }
 autopep8 = "^1.5.4"
 pytest = "^6.1.2"
 pylint = "^2.6.0"
+toml = "^0.10.2"
 
 [tool.poetry.extras]
 docs = ["sphinx", "sphinx-rtd-theme", "m2r2"]
