@@ -13,6 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
+import recap
 
 
 # -- Project information -----------------------------------------------------
@@ -22,7 +23,7 @@ copyright = '2020, Georg Wölflein'
 author = 'Georg Wölflein'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.3'
+release = recap.__version__
 
 
 # -- General configuration ---------------------------------------------------
