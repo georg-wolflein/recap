@@ -27,7 +27,7 @@ class _URIFlavour(_PosixFlavour):
             return super().splitroot(part, sep=sep)
 
 
-class URIBase(Path):
+class _URIBase(Path):
     _flavour = _URIFlavour()
 
     @property
@@ -50,22 +50,44 @@ class URIBase(Path):
 
 
 class PathManagerBase:
+    """Base class for a path manager.
+
+    This class simultaneously acts as a context manager for the currently active path manager of the URI class.
+    """
 
     def __init__(self):
         self._handlers = {}
         self._previous_path_managers = []
 
     def resolve(self, path: os.PathLike) -> Path:
-        if not isinstance(path, URIBase):
-            path = URIBase(path)
+        """Resolve a path (which might be a URI) to a local path.
+
+        Args:
+            path (os.PathLike): the path
+
+        Returns:
+            Path: the corresponding local path
+        """
+
+        if not isinstance(path, _URIBase):
+            path = _URIBase(path)
         if path.scheme:
             if path.scheme not in self._handlers:
-                raise NotImplementedError
+                raise NotImplementedError(f"No handler is registered for scheme {path.scheme}")
             return self._handlers[path.scheme](path)
         else:
             return Path(path.path)
 
     def register_handler(self, scheme: str) -> callable:
+        """Decorator to register a path handler for a given URI scheme.
+
+        Args:
+            scheme (str): the scheme
+
+        Returns:
+            callable: the decorated function
+        """
+
         def decorator(func: Callable[[os.PathLike], Path]):
             self._handlers[scheme] = func
             logger.debug(f"Registered path handler for scheme {scheme}")
@@ -81,6 +103,8 @@ class PathManagerBase:
 
 
 class PathManagerProxy(PathManagerBase):
+    """Proxy class for the main path manager instance.
+    """
 
     def __init__(self, instance: PathManagerBase):
         self._instance = instance
@@ -92,16 +116,20 @@ class PathManagerProxy(PathManagerBase):
         return self._instance.register_handler(*args, **kwargs)
 
     def __enter__(self, *args, **kwargs):
-        raise NotImplementedError
+        return self._instance.__enter__(*args, **kwargs)
 
     def __exit__(self, *args, **kwargs):
-        raise NotImplementedError
+         return self._instance.__exit__(*args, **kwargs)
+
+#: The public path manager instance.
+PathManager: PathManagerBase = PathManagerProxy(PathManagerBase())
 
 
-PathManager = PathManagerProxy(PathManagerBase())
+class URI(_URIBase):
+    """A class representing a recap URI that is lazily evaluated to a local path when it is used.
 
-
-class URI(URIBase):
+    It is fully compatible with pathlib.Path.
+    """
 
     def _init(self, *args, **kwargs):
         self._local_path = PathManager.resolve(self)
@@ -112,16 +140,33 @@ class URI(URIBase):
 
 
 class PathTranslator(abc.ABC):
+    """Abstract class representing a path translator that can translate a specific type of URIs to local paths.
+    """
 
-    def __init__(self, base_path: Path):
-        self._base_path = base_path
+    def __call__(self, uri: URI) -> Path:
+        """Translate a URI to a local path.
 
-    def __call__(self, url: URI) -> Path:
-        return self._base_path / url.path
+        Usually, this involves looking at uri.path.
+
+        Args:
+            uri (URI): the URI
+
+        Returns:
+            Path: the corresponding local path
+        """
+
+        raise NotImplementedError
 
 
 def register_translator(scheme: str, path: Path):
+    """Convenience method to register a path translator that forwards a URI scheme to a local path.
+
+    Args:
+        scheme (str): the URI scheme
+        path (Path): the local path
+    """
+
     class Translator(PathTranslator):
-        def __init__(self):
-            super().__init__(path)
+        def __call__(self, uri: URI) -> Path:
+            return path / uri.path
     PathManager.register_handler(scheme)(Translator())
