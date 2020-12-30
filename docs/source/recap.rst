@@ -1,6 +1,11 @@
 recap package
 =============
 
+.. automodule:: recap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -16,14 +21,6 @@ recap.path\_manager module
 --------------------------
 
 .. automodule:: recap.path_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: recap
    :members:
    :undoc-members:
    :show-inheritance:

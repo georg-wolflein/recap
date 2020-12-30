@@ -11,6 +11,15 @@ def test_uri_concat():
     assert str(a) == "/path/a/b"
 
 
+def test_path_manager_context():
+    assert len(PathManager._handlers) == 0
+    with PathManagerBase():
+        test_dir = Path("/a/b/test")
+        register_translator("test", test_dir)
+        assert len(PathManager._handlers) == 1
+    assert len(PathManager._handlers) == 0
+
+
 def test_virtual_uri():
     with PathManagerBase():
         test_dir = Path("/a/b/test")
@@ -44,3 +53,19 @@ def test_path_manager_resolve_custom_handler():
         return Path("/def") / path.path
 
     assert str(manager.resolve("abc://d/e")) == str(Path("/def/d/e"))
+
+
+def test_absolute_path():
+    assert URI("/a").is_absolute()
+
+
+def test_relative_path():
+    assert not URI("a").is_absolute()
+
+
+def test_absolute_uri():
+    with PathManagerBase():
+        test_dir = Path("/a/b/test")
+        register_translator("test", test_dir)
+        uri = URI("test://a/b")
+        assert uri.is_absolute()

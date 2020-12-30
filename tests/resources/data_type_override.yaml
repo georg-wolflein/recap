@@ -1,0 +1,3 @@
+_BASE_: ./data_type_override_base.yaml
+
+VALUE: my string
