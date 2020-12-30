@@ -1,0 +1,3 @@
+_BASE_: inherit_base.yaml
+
+TEST: 2

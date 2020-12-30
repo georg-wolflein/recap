@@ -44,3 +44,19 @@ def test_path_manager_resolve_custom_handler():
         return Path("/def") / path.path
 
     assert str(manager.resolve("abc://d/e")) == str(Path("/def/d/e"))
+
+
+def test_absolute_path():
+    assert URI("/a").is_absolute()
+
+
+def test_relative_path():
+    assert not URI("a").is_absolute()
+
+
+def test_absolute_uri():
+    with PathManagerBase():
+        test_dir = Path("/a/b/test")
+        register_translator("test", test_dir)
+        uri = URI("test://a/b")
+        assert uri.is_absolute()

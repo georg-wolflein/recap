@@ -24,6 +24,7 @@ class _URIFlavour(_PosixFlavour):
             root = ""
             return drive, root, path
         else:
+            self.has_drv = False
             return super().splitroot(part, sep=sep)
 
 
@@ -73,7 +74,8 @@ class PathManagerBase:
             path = _URIBase(path)
         if path.scheme:
             if path.scheme not in self._handlers:
-                raise NotImplementedError(f"No handler is registered for scheme {path.scheme}")
+                raise NotImplementedError(
+                    f"No handler is registered for scheme {path.scheme}")
             return self._handlers[path.scheme](path)
         else:
             return Path(path.path)
@@ -119,7 +121,8 @@ class PathManagerProxy(PathManagerBase):
         return self._instance.__enter__(*args, **kwargs)
 
     def __exit__(self, *args, **kwargs):
-         return self._instance.__exit__(*args, **kwargs)
+        return self._instance.__exit__(*args, **kwargs)
+
 
 #: The public path manager instance.
 PathManager: PathManagerBase = PathManagerProxy(PathManagerBase())
@@ -137,6 +140,9 @@ class URI(_URIBase):
 
     def __str__(self) -> str:
         return str(self._local_path)
+
+    def is_absolute(self) -> bool:
+        return self._local_path.is_absolute()
 
 
 class PathTranslator(abc.ABC):

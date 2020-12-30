@@ -41,7 +41,11 @@ class CfgNode(_CfgNode):
         with uri.open("r") as f:
             cfg = cls.load_cfg(f)
         if BASE_KEY in cfg:
-            base_cfg = cls.load_yaml_with_base(cfg[BASE_KEY])
+            base_uri = URI(cfg[BASE_KEY])
+            # If the URI of the base cfg is relative, it should be relative to the current YAML file
+            if not base_uri.is_absolute():
+                base_uri = uri.parent / base_uri
+            base_cfg = cls.load_yaml_with_base(base_uri)
             del cfg[BASE_KEY]
             base_cfg.merge_from_other_cfg(cfg)
             return base_cfg
