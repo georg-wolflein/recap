@@ -1,3 +1,6 @@
+"""Configuration management by extending :class:`yacs.config.CfgNode`.
+"""
+
 import os
 from typing import Dict, Any
 from pathlib import Path

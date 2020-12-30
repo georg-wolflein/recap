@@ -1,3 +1,6 @@
+"""Module for conveniently managing paths through the :class:`URI` class which is fully compatible with :class:`pathlib.Path`.
+"""
+
 from pathlib import Path, PurePath, _PosixFlavour
 from typing import Callable
 import logging
@@ -73,7 +76,7 @@ class PathTranslator(abc.ABC):
 class PathManagerBase:
     """Base class for a path manager.
 
-    This class simultaneously acts as a context manager for the currently active path manager of the URI class.
+    This class simultaneously acts as a context manager for the currently active path manager of the :class:`URI` class.
     """
 
     def __init__(self):
@@ -81,7 +84,7 @@ class PathManagerBase:
         self._previous_path_managers = []
 
     def resolve(self, path: os.PathLike) -> Path:
-        """Resolve a path (which might be a URI) to a local path.
+        """Resolve a path (which might be a :class:`pathlib.Path`) to a local path.
 
         Args:
             path (os.PathLike): the path
@@ -131,7 +134,7 @@ PathManager: PathManagerBase = wrapt.ObjectProxy(PathManagerBase())
 class URI(_URIBase):
     """A class representing a recap URI that is lazily evaluated to a local path when it is used.
 
-    It is fully compatible with pathlib.Path.
+    It is fully compatible with :class:`pathlib.Path`.
     """
 
     def _init(self, *args, **kwargs):

@@ -1,7 +1,7 @@
 .. mdinclude:: ../../README.md
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
-   modules
+   recap
