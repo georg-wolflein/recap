@@ -6,6 +6,7 @@ import abc
 from contextlib import contextmanager
 import re
 import os
+import wrapt
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +51,25 @@ class _URIBase(Path):
         return "{}({!r})".format(self.__class__.__name__, s)
 
 
+class PathTranslator(abc.ABC):
+    """Abstract class representing a path translator that can translate a specific type of URIs to local paths.
+    """
+
+    def __call__(self, uri: "URI") -> Path:
+        """Translate a URI to a local path.
+
+        Usually, this involves looking at uri.path.
+
+        Args:
+            uri (URI): the URI
+
+        Returns:
+            Path: the corresponding local path
+        """
+
+        raise NotImplementedError
+
+
 class PathManagerBase:
     """Base class for a path manager.
 
@@ -80,7 +100,7 @@ class PathManagerBase:
         else:
             return Path(path.path)
 
-    def register_handler(self, scheme: str) -> callable:
+    def register_handler(self, scheme: str) -> Callable[[PathTranslator], PathTranslator]:
         """Decorator to register a path handler for a given URI scheme.
 
         Args:
@@ -90,42 +110,22 @@ class PathManagerBase:
             callable: the decorated function
         """
 
-        def decorator(func: Callable[[os.PathLike], Path]):
-            self._handlers[scheme] = func
+        def decorator(translator: PathTranslator) -> PathTranslator:
+            self._handlers[scheme] = translator
             logger.debug(f"Registered path handler for scheme {scheme}")
-            return func
+            return translator
         return decorator
 
     def __enter__(self):
-        self._previous_path_managers.append(PathManager._instance)
-        PathManager._instance = self
+        self._previous_path_managers.append(PathManager.__wrapped__)
+        PathManager.__wrapped__ = self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        PathManager._instance = self._previous_path_managers.pop()
-
-
-class _PathManagerProxy(PathManagerBase):
-    """Proxy class for the main path manager instance.
-    """
-
-    def __init__(self, instance: PathManagerBase):
-        self._instance = instance
-
-    def resolve(self, *args, **kwargs):
-        return self._instance.resolve(*args, **kwargs)
-
-    def register_handler(self, *args, **kwargs):
-        return self._instance.register_handler(*args, **kwargs)
-
-    def __enter__(self, *args, **kwargs):
-        return self._instance.__enter__(*args, **kwargs)
-
-    def __exit__(self, *args, **kwargs):
-        return self._instance.__exit__(*args, **kwargs)
+        PathManager.__wrapped__ = self._previous_path_managers.pop()
 
 
 #: The public path manager instance.
-PathManager: PathManagerBase = _PathManagerProxy(PathManagerBase())
+PathManager: PathManagerBase = wrapt.ObjectProxy(PathManagerBase())
 
 
 class URI(_URIBase):
@@ -143,25 +143,6 @@ class URI(_URIBase):
 
     def is_absolute(self) -> bool:
         return self._local_path.is_absolute()
-
-
-class PathTranslator(abc.ABC):
-    """Abstract class representing a path translator that can translate a specific type of URIs to local paths.
-    """
-
-    def __call__(self, uri: URI) -> Path:
-        """Translate a URI to a local path.
-
-        Usually, this involves looking at uri.path.
-
-        Args:
-            uri (URI): the URI
-
-        Returns:
-            Path: the corresponding local path
-        """
-
-        raise NotImplementedError
 
 
 def register_translator(scheme: str, path: Path):
