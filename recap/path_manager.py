@@ -104,7 +104,7 @@ class PathManagerBase:
         PathManager._instance = self._previous_path_managers.pop()
 
 
-class PathManagerProxy(PathManagerBase):
+class _PathManagerProxy(PathManagerBase):
     """Proxy class for the main path manager instance.
     """
 
@@ -125,7 +125,7 @@ class PathManagerProxy(PathManagerBase):
 
 
 #: The public path manager instance.
-PathManager: PathManagerBase = PathManagerProxy(PathManagerBase())
+PathManager: PathManagerBase = _PathManagerProxy(PathManagerBase())
 
 
 class URI(_URIBase):
