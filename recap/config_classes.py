@@ -1,5 +1,4 @@
 import typing
-from dataclasses import dataclass
 from inspect import isclass
 import yaml
 import copy
