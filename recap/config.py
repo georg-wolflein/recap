@@ -50,6 +50,7 @@ class CfgNode(_CfgNode):
                 base_uri = uri.parent / base_uri
             base_cfg = cls.load_yaml_with_base(base_uri)
             del cfg[BASE_KEY]
+            # base_cfg.merge_with_dict(cfg.params_dict())
             base_cfg.merge_from_other_cfg(cfg)
             return base_cfg
         return cfg
@@ -99,3 +100,10 @@ class CfgNode(_CfgNode):
             else:
                 params[k] = v
         return params
+
+    @classmethod
+    def _decode_cfg_value(cls, value):
+        # Patch error in yacs causing the string '"1234"' being interpreted as the number '1234'.
+        if isinstance(value, dict):
+            return cls(value)
+        return value

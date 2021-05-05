@@ -21,3 +21,7 @@ def test_inherit_yaml():
 def test_data_type_override():
     with pytest.raises(ValueError):
         cfg = CN.load_yaml_with_base(RESOURCES / "data_type_override.yaml")
+
+def test_number_as_string():
+    cfg = CN.load_yaml_with_base(RESOURCES / "number_as_string.yaml")
+    assert isinstance(cfg.PROPERTY, str)

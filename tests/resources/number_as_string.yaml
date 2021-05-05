@@ -1,0 +1,3 @@
+_BASE_: number_as_string_base.yaml
+
+PROPERTY: "1234"
