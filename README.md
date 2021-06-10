@@ -1,9 +1,9 @@
 # recap
 
-[![build](https://github.com/georgw777/recap/workflows/build/badge.svg)](https://github.com/georgw777/recap/actions?query=workflow%3Abuild)
+[![build](https://github.com/georg-wolflein/recap/workflows/build/badge.svg)](https://github.com/georg-wolflein/recap/actions?query=workflow%3Abuild)
 [![PyPI](https://img.shields.io/pypi/v/recap)](https://pypi.org/project/recap)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/recap)](https://pypi.org/project/recap)
-[![Licence](https://img.shields.io/github/license/georgw777/recap)](https://github.com/georgw777/recap/blob/master/LICENSE)
+[![Licence](https://img.shields.io/github/license/georg-wolflein/recap)](https://github.com/georg-wolflein/recap/blob/master/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/recap/badge/?version=latest)](http://recap.readthedocs.io/?badge=latest)
 
 _recap_ is a tool for providing _REproducible Configurations for Any Project_.
