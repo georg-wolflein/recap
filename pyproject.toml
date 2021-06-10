@@ -9,7 +9,7 @@ packages = [
 ]
 readme = "README.md"
 homepage = "http://recap.readthedocs.io"
-repository = "https://github.com/georgw777/recap"
+repository = "https://github.com/georg-wolflein/recap"
 keywords = ["flake8", "markdown", "lint"]
 classifiers = [
     "Programming Language :: Python :: 3",
