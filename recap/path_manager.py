@@ -1,12 +1,10 @@
 """Module for conveniently managing paths through the :class:`URI` class which is fully compatible with :class:`pathlib.Path`.
 """
 
-from pathlib import Path, PurePath, _PosixFlavour
+from pathlib import Path, _PosixFlavour
 from typing import Callable
 import logging
-import functools
 import abc
-from contextlib import contextmanager
 import re
 import os
 import wrapt
@@ -139,7 +137,7 @@ class URI(_URIBase):
 
     def _init(self, *args, **kwargs):
         self._local_path = PathManager.resolve(self)
-        super()._init()
+        super()._init(*args, **kwargs)
 
     def __str__(self) -> str:
         return str(self._local_path)

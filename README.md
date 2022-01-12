@@ -136,3 +136,7 @@ The `recap.URI` interface is fully compatible with the nested configurations.
 This means that you can use recap `URI`s within the `_BASE_` field for inheriting configurations.
 
 For example, you could register a path translator for the `config` scheme and then include `_BASE_: config://_base.yaml` in your configuration files.
+
+# Known bugs
+
+- Currently incompatible with Python 3.10.
