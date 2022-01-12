@@ -26,6 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           curl -sSL https://install.python-poetry.org | python3 - --version 1.2.0a2
           poetry plugin add poetry-version-plugin
+          pip install certifi # workaround
       - name: Configure poetry
         run: poetry config virtualenvs.create false
       - name: Install Dependencies
