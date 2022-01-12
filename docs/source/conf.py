@@ -10,16 +10,16 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import recap
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-import recap
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'recap'
-copyright = '2020, Georg Wölflein'
+copyright = '2020-22, Georg Wölflein'
 author = 'Georg Wölflein'
 
 # The full version, including alpha/beta/rc tags

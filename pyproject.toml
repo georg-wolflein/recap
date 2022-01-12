@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "recap"
-version = "0.1.6"
+version = "0"
 description = "Reproducible configurations for any project"
 authors = ["Georg Wölflein <georgw7777@gmail.com>"]
 license = "Apache-2.0"
@@ -35,10 +35,12 @@ m2r2 = { version = "^0.2.7", optional = true }
 autopep8 = "^1.5.4"
 pytest = "^6.1.2"
 pylint = "^2.6.0"
-toml = "^0.10.2"
 
 [tool.poetry.extras]
 docs = ["sphinx", "sphinx-rtd-theme", "m2r2"]
+
+[tool.poetry-version-plugin]
+source = "init"
 
 [build-system]
 requires = ["poetry>=0.12"]
