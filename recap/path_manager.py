@@ -8,6 +8,7 @@ import abc
 import re
 import os
 import wrapt
+from functools import cached_property
 
 logger = logging.getLogger(__name__)
 
@@ -135,9 +136,9 @@ class URI(_URIBase):
     It is fully compatible with :class:`pathlib.Path`.
     """
 
-    def _init(self, *args, **kwargs):
-        self._local_path = PathManager.resolve(self)
-        super()._init(*args, **kwargs)
+    @cached_property
+    def _local_path(self) -> Path:
+        return PathManager.resolve(self)
 
     def __str__(self) -> str:
         return str(self._local_path)
