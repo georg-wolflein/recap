@@ -23,19 +23,18 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 yacs = "^0.1.8"
 wrapt = "^1.12.1"
 pyyaml = "^6.0.1"
-sphinx = { version = "^3.4.1", optional = true }
-sphinx-rtd-theme = { version = "^0.5.0", optional = true }
-m2r2 = { version = "^0.2.7", optional = true }
-Jinja2 = { version = "<3.1", optional = true }
+sphinx = { version = "^7.2.6", optional = true }
+sphinx-rtd-theme = { version = "<2.0.0", optional = true }
+m2r2 = { version = "^0.3.3", optional = true }
 
 [tool.poetry.dev-dependencies]
-autopep8 = "^1.5.4"
-pytest = "^6.1.2"
-pylint = "^2.6.0"
+autopep8 = "^2.0.4"
+pytest = "^7.4.3"
+pylint = "^3.0.2"
 
 [tool.poetry.extras]
 docs = ["sphinx", "sphinx-rtd-theme", "m2r2", "Jinja2"]
