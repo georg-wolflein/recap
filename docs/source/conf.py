@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'recap'
-copyright = '2020-22, Georg Wölflein'
+copyright = '2020-2023, Georg Wölflein'
 author = 'Georg Wölflein'
 
 # The full version, including alpha/beta/rc tags
